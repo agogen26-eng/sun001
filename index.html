@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>事例IVマスターガイド | 中小企業診断士試験対策</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;500&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0f0e0c;
+    --cream: #f7f4ef;
+    --gold: #c8922a;
+    --gold-light: #e8b84b;
+    --warm-gray: #8a8278;
+    --accent: #1a3a2a;
+    --white: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 20px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(247,244,239,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200,146,42,0.2);
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px; letter-spacing: 0.05em;
+    color: var(--accent);
+  }
+  .nav-cta {
+    background: var(--gold);
+    color: var(--white);
+    padding: 10px 24px;
+    border: none; cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 13px; font-weight: 500;
+    letter-spacing: 0.08em;
+    transition: background 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .nav-cta:hover { background: var(--gold-light); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 55%; height: 100%;
+    background: var(--accent);
+    clip-path: polygon(8% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 560px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--white);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.15em;
+    padding: 6px 16px;
+    margin-bottom: 32px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero-title span {
+    color: var(--gold);
+    display: block;
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 1;
+  }
+  .hero-sub {
+    font-size: 15px;
+    color: var(--warm-gray);
+    line-height: 1.8;
+    margin: 24px 0 40px;
+    animation: fadeUp 0.6s 0.2s ease both;
+    font-weight: 300;
+  }
+  .hero-cta-group {
+    display: flex; gap: 16px; align-items: center;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--white);
+    padding: 16px 36px;
+    font-size: 15px; font-weight: 500;
+    letter-spacing: 0.06em;
+    border: none; cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif;
+    text-decoration: none;
+    transition: transform 0.2s, background 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { transform: translateY(-2px); background: var(--gold-light); }
+  .btn-ghost {
+    color: var(--warm-gray);
+    font-size: 13px;
+    text-decoration: underline;
+    cursor: pointer;
+    background: none; border: none;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+
+  .hero-right {
+    position: absolute; right: 0; top: 0;
+    width: 55%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1;
+    padding-left: 10%;
+    animation: fadeIn 0.8s 0.3s ease both;
+  }
+  .book-mockup {
+    width: 260px;
+    background: var(--white);
+    box-shadow: -20px 20px 60px rgba(0,0,0,0.4), 4px 0 0 #d4a843, 8px 0 0 #e8c870;
+    padding: 40px 32px;
+    position: relative;
+    transform: rotate(-3deg);
+  }
+  .book-mockup::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 20px;
+    background: linear-gradient(to right, #b07d1a, #d4a843);
+  }
+  .book-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 72px;
+    color: var(--gold);
+    opacity: 0.15;
+    line-height: 1;
+  }
+  .book-text {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-top: -20px;
+    line-height: 1.5;
+  }
+  .book-sub-text {
+    font-size: 11px;
+    color: var(--warm-gray);
+    margin-top: 16px;
+    letter-spacing: 0.1em;
+  }
+  .book-tag {
+    position: absolute;
+    top: -12px; right: 20px;
+    background: var(--gold);
+    color: var(--white);
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+
+  /* STATS */
+  .stats {
+    background: var(--accent);
+    padding: 64px 48px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background-color: rgba(255,255,255,0.1);
+  }
+  .stat-item {
+    background: var(--accent);
+    padding: 40px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 56px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-unit { font-size: 20px; }
+  .stat-label {
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    margin-top: 8px;
+    letter-spacing: 0.1em;
+    font-weight: 300;
+  }
+
+  /* SECTION COMMONS */
+  section { padding: 96px 48px; }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .section-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 48px;
+  }
+
+  /* PROBLEM */
+  .problem {
+    background: var(--white);
+  }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: #e8e4dc;
+  }
+  .problem-item {
+    background: var(--white);
+    padding: 40px;
+    border-left: 3px solid transparent;
+    transition: border-color 0.3s;
+  }
+  .problem-item:hover { border-left-color: var(--gold); }
+  .problem-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+  .problem-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .problem-text {
+    font-size: 14px;
+    color: var(--warm-gray);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* FEATURES */
+  .features { background: var(--cream); }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .feature-card {
+    background: var(--white);
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+  .feature-card:hover { transform: translateY(-4px); }
+  .feature-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .feature-card:hover::after { transform: scaleX(1); }
+  .feature-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 48px;
+    color: var(--gold);
+    opacity: 0.2;
+    line-height: 1;
+  }
+  .feature-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 8px 0 16px;
+  }
+  .feature-text {
+    font-size: 14px;
+    color: var(--warm-gray);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials { background: var(--accent); }
+  .testimonials .section-title { color: var(--white); }
+  .testimonials .section-label { color: var(--gold-light); }
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .testi-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 32px;
+    position: relative;
+  }
+  .testi-card::before {
+    content: '"';
+    font-family: 'DM Serif Display', serif;
+    font-size: 80px;
+    color: var(--gold);
+    opacity: 0.4;
+    position: absolute;
+    top: -10px; left: 24px;
+    line-height: 1;
+  }
+  .testi-text {
+    color: rgba(255,255,255,0.85);
+    font-size: 14px;
+    line-height: 1.8;
+    margin-top: 32px;
+    font-weight: 300;
+  }
+  .testi-author {
+    margin-top: 20px;
+    font-size: 12px;
+    color: var(--gold-light);
+    letter-spacing: 0.1em;
+  }
+
+  /* PRICING */
+  .pricing { background: var(--white); }
+  .pricing-card {
+    max-width: 520px;
+    margin: 0 auto;
+    border: 2px solid var(--gold);
+    padding: 56px;
+    text-align: center;
+    position: relative;
+  }
+  .pricing-badge {
+    position: absolute;
+    top: -16px; left: 50%; transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--white);
+    padding: 6px 24px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    white-space: nowrap;
+  }
+  .pricing-name {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--warm-gray);
+    margin-bottom: 16px;
+  }
+  .pricing-price {
+    font-family: 'DM Serif Display', serif;
+    font-size: 72px;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .pricing-price small {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 18px;
+    color: var(--warm-gray);
+  }
+  .pricing-list {
+    list-style: none;
+    margin: 32px 0;
+    text-align: left;
+  }
+  .pricing-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .pricing-list li::before {
+    content: '✓';
+    color: var(--gold);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .pricing-cta {
+    width: 100%;
+    background: var(--gold);
+    color: var(--white);
+    padding: 18px;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    border: none; cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif;
+    transition: background 0.2s;
+  }
+  .pricing-cta:hover { background: var(--gold-light); }
+  .pricing-note {
+    font-size: 12px;
+    color: var(--warm-gray);
+    margin-top: 16px;
+  }
+
+  /* FAQ */
+  .faq { background: var(--cream); }
+  .faq-list { max-width: 720px; }
+  .faq-item {
+    border-bottom: 1px solid #ddd;
+    padding: 24px 0;
+    cursor: pointer;
+  }
+  .faq-q {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  .faq-q .toggle {
+    width: 28px; height: 28px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: var(--gold);
+    font-size: 18px;
+    transition: transform 0.3s, background 0.2s;
+  }
+  .faq-item.open .toggle {
+    transform: rotate(45deg);
+    background: var(--gold);
+    color: var(--white);
+  }
+  .faq-a {
+    font-size: 14px;
+    color: var(--warm-gray);
+    line-height: 1.8;
+    font-weight: 300;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, margin 0.3s;
+  }
+  .faq-item.open .faq-a {
+    max-height: 200px;
+    margin-top: 16px;
+  }
+
+  /* FINAL CTA */
+  .final-cta {
+    background: var(--gold);
+    padding: 96px 48px;
+    text-align: center;
+  }
+  .final-cta .section-title {
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .final-cta p {
+    color: rgba(255,255,255,0.85);
+    font-size: 16px;
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+  .btn-white {
+    background: var(--white);
+    color: var(--gold);
+    padding: 18px 48px;
+    font-size: 16px;
+    font-weight: 700;
+    border: none; cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif;
+    letter-spacing: 0.06em;
+    transition: transform 0.2s;
+    display: inline-block;
+    text-decoration: none;
+  }
+  .btn-white:hover { transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.5);
+    padding: 40px 48px;
+    display: flex;
+    justify-content: space-between; align-items: center;
+    font-size: 13px;
+  }
+  .footer-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--white);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .hero { padding: 100px 24px 60px; flex-direction: column; }
+    .hero::before { display: none; }
+    .hero-right { display: none; }
+    section { padding: 64px 24px; }
+    .stats { grid-template-columns: 1fr; }
+    .problem-grid { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .pricing-card { padding: 40px 24px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">MASTERGUIDE IV</div>
+  <a href="#pricing" class="nav-cta">今すぐ購入する</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">中小企業診断士 二次試験対策</div>
+    <h1 class="hero-title">
+      事例IV
+      <span>完全制覇</span>
+    </h1>
+    <p class="hero-sub">
+      財務・会計の壁を突破する、<br>
+      体系的メソッドがここにある。<br>
+      合格者が実証した解法フレームワークで、<br>
+      最難関科目を得点源に変える。
+    </p>
+    <div class="hero-cta-group">
+      <a href="#pricing" class="btn-primary">マスターガイドを入手する</a>
+      <button class="btn-ghost" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">詳細を見る</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="book-mockup">
+      <div class="book-tag">2025年版</div>
+      <div class="book-number">IV</div>
+      <div class="book-text">事例IV<br>マスター<br>ガイド</div>
+      <div class="book-sub-text">中小企業診断士 二次試験対策</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item reveal">
+    <div class="stat-num">2,800<span class="stat-unit">+</span></div>
+    <div class="stat-label">累計利用者数</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">87<span class="stat-unit">%</span></div>
+    <div class="stat-label">事例IV得点向上率</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">200<span class="stat-unit">+</span></div>
+    <div class="stat-label">収録演習問題数</div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="section-label">PROBLEM</div>
+  <h2 class="section-title reveal">あなたが事例IVで<br>つまずく本当の理由</h2>
+  <div class="problem-grid">
+    <div class="problem-item reveal">
+      <div class="problem-icon">📊</div>
+      <div class="problem-title">計算の手順がバラバラ</div>
+      <div class="problem-text">CVP分析、NPV計算、経営指標…。問題ごとに解き方が変わり、本番で頭が真っ白になる。</div>
+    </div>
+    <div class="problem-item reveal">
+      <div class="problem-icon">⏱</div>
+      <div class="problem-title">時間配分で失敗する</div>
+      <div class="problem-text">計算に時間をかけすぎて、記述問題が手薄に。80分という制約の中での戦略が決まっていない。</div>
+    </div>
+    <div class="problem-item reveal">
+      <div class="problem-icon">📝</div>
+      <div class="problem-title">記述の書き方がわからない</div>
+      <div class="problem-text">計算は合っているのに点数が伸びない。財務分析の所見をどう書けば得点できるかが不明。</div>
+    </div>
+    <div class="problem-item reveal">
+      <div class="problem-icon">🔄</div>
+      <div class="problem-title">演習が非効率</div>
+      <div class="problem-text">過去問を解くだけでは傾向が見えない。何を、どの順序で、どれだけ練習すべきかが整理されていない。</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-label">FEATURES</div>
+  <h2 class="section-title reveal">マスターガイドが<br>解決する3つのこと</h2>
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feature-num">01</div>
+      <div class="feature-title">解法の完全体系化</div>
+      <div class="feature-text">CVP・NPV・経営指標のすべてを統一フォーマットで整理。「この問題はこのフレーム」で即座に対応できる解法マップを提供します。</div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-num">02</div>
+      <div class="feature-title">80分マネジメント戦略</div>
+      <div class="feature-text">どの設問から着手し、何分で切り上げるか。得点最大化のための時間配分テンプレートを事例ごとに提示します。</div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-num">03</div>
+      <div class="feature-title">採点基準から逆算した記述術</div>
+      <div class="feature-text">「なぜこの答えが正解か」を採点側の視点で解説。部分点を確実に積み上げる記述の型を習得できます。</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label">TESTIMONIALS</div>
+  <h2 class="section-title reveal">合格者の声</h2>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-text">事例IVが一番の弱点でしたが、このガイドで解法の型が固まりました。本番では自己採点58点。苦手科目が最高得点になりました。</div>
+      <div class="testi-author">── 製造業・34歳男性 / 2024年合格</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-text">時間配分の章が特に役立ちました。今まで計算に全時間を使っていたのが嘘のよう。記述にも余裕を持てるようになりました。</div>
+      <div class="testi-author">── 金融機関勤務・29歳女性 / 2024年合格</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-text">3回目の挑戦でようやく合格。このガイドで初めて事例IVの「構造」が見えた気がします。2年前に出会いたかった。</div>
+      <div class="testi-author">── 中小企業経営者・45歳男性 / 2024年合格</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-label">PRICING</div>
+  <h2 class="section-title reveal" style="text-align:center">シンプルな料金体系</h2>
+  <div class="pricing-card reveal">
+    <div class="pricing-badge">期間限定 早割価格</div>
+    <div class="pricing-name">事例IVマスターガイド 完全版</div>
+    <div class="pricing-price"><small>¥</small>9,800</div>
+    <ul class="pricing-list">
+      <li>本編テキスト（PDF・200ページ）</li>
+      <li>解法フレームワーク早見表（A4印刷用）</li>
+      <li>演習問題200問（解説付き）</li>
+      <li>80分タイムマネジメントシート</li>
+      <li>合格者インタビュー動画（3本）</li>
+      <li>購入後1年間のアップデート無料</li>
+    </ul>
+    <button class="pricing-cta">今すぐ購入する（即時ダウンロード）</button>
+    <div class="pricing-note">※ クレジットカード・コンビニ払い対応 ／ 7日間返金保証</div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="section-label">FAQ</div>
+  <h2 class="section-title reveal">よくある質問</h2>
+  <div class="faq-list">
+    <div class="faq-item reveal">
+      <div class="faq-q">
+        初学者でも使えますか？
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-a">はい。財務・会計の基礎から丁寧に解説しています。ただし、一次試験の財務・会計科目を学習済みであることを前提としています。</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q">
+        購入後すぐに使えますか？
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-a">はい。購入完了後、登録メールアドレスにダウンロードリンクが即時送付されます。PDFなのでスマホ・タブレット・PCいずれでもご利用いただけます。</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q">
+        2025年度試験に対応していますか？
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-a">はい。2025年版として最新の出題傾向を反映しています。購入後1年間は無料でアップデート版をご提供します。</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q">
+        返金保証はありますか？
+        <span class="toggle">+</span>
+      </div>
+      <div class="faq-a">購入日から7日以内であれば、理由を問わず全額返金いたします。安心してお試しください。</div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2 class="section-title reveal">事例IVを、<br>得点源にする。</h2>
+  <p>今年の試験まで、残り時間は限られている。</p>
+  <a href="#pricing" class="btn-white">マスターガイドを入手する</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">MASTERGUIDE IV</div>
+  <div>© 2025 中小企業経営戦略研究所 / プライバシーポリシー / 特定商取引法</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // FAQ toggle
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('click', () => {
+      item.classList.toggle('open');
+    });
+  });
+</script>
+
+</body>
+</html>
